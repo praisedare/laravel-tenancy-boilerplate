@@ -24,4 +24,6 @@ return [
 
     Tenancy\Database\Drivers\Mysql\Provider::class,
     Tenancy\Database\Drivers\Sqlite\Provider::class,
+
+    Tenancy\Identification\Drivers\Http\Providers\IdentificationProvider::class
 ];

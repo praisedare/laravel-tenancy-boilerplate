@@ -8,6 +8,7 @@ class ConfigureTenantConnection
 {
     public function handle(Configuring $event)
     {
+        dump('12345');
         \Log::debug('in config_tenant_conn handler');
         $defaults = $event->defaults($event->tenant);
         dump($event->useConnection('mysql', [
