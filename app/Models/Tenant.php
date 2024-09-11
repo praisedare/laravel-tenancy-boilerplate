@@ -21,8 +21,17 @@ class Tenant extends Model implements ContractsTenant, IdentifiesByHttp
         'deleted' => Events\Deleted::class,
     ];
 
+    public function getTenantKey(): int|string
+    {
+        return str(env('TENANT_DB_PREFIX', 'tenant_') . $this->id)->snake();
+    }
+
     public function tenantIdentificationByHttp(Request $request): ?ContractsTenant
     {
-        return $this->query()->where('id', $request->get('tenant'))->first();
+        return match (true) {
+            // Route path tenancy
+            str_starts_with($request->path(), 'tenant') => $this->query()->where('id', str($request->path())->explode('/')[1])->first(),
+            default => null,
+        };
     }
 }

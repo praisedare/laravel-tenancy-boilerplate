@@ -8,13 +8,14 @@ class ConfigureTenantConnection
 {
     public function handle(Configuring $event)
     {
-        dump('12345');
-        \Log::debug('in config_tenant_conn handler');
-        $defaults = $event->defaults($event->tenant);
-        dump($event->useConnection('mysql', [
-            ...$defaults,
-            'database' => str(env('TENANT_DB_PREFIX', 'tenant_') . $defaults['database'])->snake(),
-        ]));
+        // $defaults = $event->defaults($event->tenant);
+        //
+        // $event->useConnection('mysql', dump([
+        //     ...$defaults,
+        //     'database' => str(env('TENANT_DB_PREFIX', 'tenant_') . $defaults['database'])->snake(),
+        // ]));
+        $event->useConnection('mysql', $event->defaults($event->tenant));
+        dump($event->configuration);
     }
 }
 
